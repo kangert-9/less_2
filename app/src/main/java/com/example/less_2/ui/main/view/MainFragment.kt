@@ -11,6 +11,10 @@ import com.example.less_2.ui.main.viewmodel.MainViewModel
 import com.example.less_2.ui.main.viewmodel.AppState
 import com.google.android.material.snackbar.Snackbar
 
+
+
+
+
 class MainFragment : Fragment() {
 
     companion object {
@@ -38,13 +42,13 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         viewModel.getLiveData().observe(viewLifecycleOwner, { renderData(it) })
-        viewModel.getWeather()
+        viewModel.getFilm()
     }
 
     private fun renderData(appState: AppState) {
         when (appState) {
             is AppState.Success -> {
-                val weatherData = appState.weatherData.toString()
+                val weatherData = appState.filmData.toString()
                 binding.loadingLayout.visibility = View.GONE
                 binding.message.text = weatherData
             }
@@ -55,7 +59,7 @@ class MainFragment : Fragment() {
                 binding.loadingLayout.visibility = View.GONE
                 Snackbar
                     .make(binding.mainView, "Error: ${appState.error}", Snackbar.LENGTH_INDEFINITE)
-                    .setAction("Reload") { viewModel.getWeather() }
+                    .setAction("Reload") { viewModel.getFilm() }
                     .show()
             }
         }

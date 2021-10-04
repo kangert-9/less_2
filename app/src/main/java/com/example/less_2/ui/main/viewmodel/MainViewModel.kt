@@ -14,14 +14,14 @@ class MainViewModel : ViewModel() {
     val liveData: LiveData<AppState> = liveDataToObserve
     fun getLiveData() = liveDataToObserve
 
-    fun getWeather() = getDataFromLocalSource()
+    fun getFilm() = getDataFromLocalSource()
 
     private fun getDataFromLocalSource() {
         liveDataToObserve.value = AppState.Loading
         Thread {
             sleep(1000)
             if(Random.nextBoolean()) {
-                liveDataToObserve.postValue(AppState.Success(repositoryImpl.getWeatherFromLocalStorage()))
+                liveDataToObserve.postValue(AppState.Success(repositoryImpl.getFilmFromLocalStorage()))
             } else {
                 liveDataToObserve.postValue(AppState.Error(Exception("нет интернета")))
             }
