@@ -25,7 +25,7 @@ class FilmAdapter : RecyclerView.Adapter<FilmAdapter.ViewHolder>(){
 
     override fun getItemCount(): Int = filmList.size
 
-    class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView){
+    inner class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView){
         fun bind(film: Film){
             val s: String = film.name+ " "+ film.rating.toString()
             itemView.findViewById<TextView>(R.id.textFilm).text = s

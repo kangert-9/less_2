@@ -6,14 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.less_2.databinding.MainFragmentBinding
 import com.example.less_2.ui.main.viewmodel.MainViewModel
 import com.example.less_2.ui.main.viewmodel.AppState
 import com.google.android.material.snackbar.Snackbar
 
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.less_2.ui.main.model.FilmAdapter
-import com.example.less_2.ui.main.model.Repository
 
 
 class MainFragment : Fragment() {
@@ -25,6 +24,8 @@ class MainFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
+    private val adapter = FilmAdapter()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,9 +50,12 @@ class MainFragment : Fragment() {
     private fun renderData(appState: AppState) {
         when (appState) {
             is AppState.Success -> {
-                //val filmData = appState.filmData.toString()
                 binding.loadingLayout.visibility = View.GONE
-                initAdapter()
+                val recyclerView = binding.recyclerViewLines
+                val layoutManager = LinearLayoutManager(context)
+                recyclerView.layoutManager = layoutManager
+                recyclerView.adapter = adapter
+                adapter.setFilmList(appState.filmData)
             }
             is AppState.Loading -> {
                 binding.loadingLayout.visibility = View.VISIBLE
@@ -64,16 +68,5 @@ class MainFragment : Fragment() {
                     .show()
             }
         }
-    }
-
-    private fun initAdapter() {
-        val recyclerView = binding.recyclerViewLines
-        val layoutManager = LinearLayoutManager(context)
-        recyclerView.layoutManager = layoutManager
-
-        val adapter = FilmAdapter()
-        recyclerView.adapter = adapter
-
-        adapter.setFilmList(Repository.filmList)
     }
 }
