@@ -72,9 +72,7 @@ class MainActivity : AppCompatActivity() {
         //todo search
         return true
 }
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return super.onOptionsItemSelected(item)
-    }
+
     private fun addFragment(fragment: Fragment) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(id.container, fragment).commit()

@@ -11,8 +11,9 @@ import com.example.less_2.ui.main.viewmodel.MainViewModel
 import com.example.less_2.ui.main.viewmodel.AppState
 import com.google.android.material.snackbar.Snackbar
 
-
-
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.less_2.ui.main.model.FilmAdapter
+import com.example.less_2.ui.main.model.Repository
 
 
 class MainFragment : Fragment() {
@@ -48,9 +49,9 @@ class MainFragment : Fragment() {
     private fun renderData(appState: AppState) {
         when (appState) {
             is AppState.Success -> {
-                val weatherData = appState.filmData.toString()
+                //val filmData = appState.filmData.toString()
                 binding.loadingLayout.visibility = View.GONE
-                binding.message.text = weatherData
+                initAdapter()
             }
             is AppState.Loading -> {
                 binding.loadingLayout.visibility = View.VISIBLE
@@ -58,10 +59,21 @@ class MainFragment : Fragment() {
             is AppState.Error -> {
                 binding.loadingLayout.visibility = View.GONE
                 Snackbar
-                    .make(binding.mainView, "Error: ${appState.error}", Snackbar.LENGTH_INDEFINITE)
+                    .make(binding.root, "Error: ${appState.error}", Snackbar.LENGTH_INDEFINITE)
                     .setAction("Reload") { viewModel.getFilm() }
                     .show()
             }
         }
+    }
+
+    private fun initAdapter() {
+        val recyclerView = binding.recyclerViewLines
+        val layoutManager = LinearLayoutManager(context)
+        recyclerView.layoutManager = layoutManager
+
+        val adapter = FilmAdapter()
+        recyclerView.adapter = adapter
+
+        adapter.setFilmList(Repository.filmList)
     }
 }

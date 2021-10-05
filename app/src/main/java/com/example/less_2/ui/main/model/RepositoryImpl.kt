@@ -1,9 +1,8 @@
 package com.example.less_2.ui.main.model
 
-import com.example.less_2.ui.main.model.Repository
 
-class RepositoryImpl : Repository {
-
+object Repository
+ {
     val filmList: List<Film> = listOf(
         Film("Venom 2",7.1),
         Film("Dune", 8.0),
@@ -12,11 +11,11 @@ class RepositoryImpl : Repository {
         Film("James Bond. No time to die", 9.0)
     )
 
-    override fun getFilmFromServer(): Film {
-        return Film()
+    fun getFilmFromServer(): List<Film> {
+        return filmList
     }
 
-    override fun getFilmFromLocalStorage(): Film {
-        return Film()
+    fun getFilmFromLocalStorage(): List<Film> {
+        return filmList
     }
 }

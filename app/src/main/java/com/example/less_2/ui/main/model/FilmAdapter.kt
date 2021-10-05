@@ -27,7 +27,8 @@ class FilmAdapter : RecyclerView.Adapter<FilmAdapter.ViewHolder>(){
 
     class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView){
         fun bind(film: Film){
-            itemView.findViewById<TextView>(R.id.textFilm).text = {film.name+" "+film.rating}.toString()
+            val s: String = film.name+ " "+ film.rating.toString()
+            itemView.findViewById<TextView>(R.id.textFilm).text = s
         }
     }
 }
