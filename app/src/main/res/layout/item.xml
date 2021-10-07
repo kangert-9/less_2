@@ -15,7 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_gravity="start|center_vertical"
-        xmlns:tools="http://schemas.android.com/tools"
         tools:src="@tools:sample/avatars"
         android:contentDescription="@string/poster" />
     <LinearLayout
@@ -46,9 +45,3 @@
     </LinearLayout>
 </LinearLayout>
 </androidx.cardview.widget.CardView>
-
-
-
-
-
-

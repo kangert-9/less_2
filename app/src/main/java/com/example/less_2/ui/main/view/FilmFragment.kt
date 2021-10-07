@@ -25,16 +25,10 @@ class FilmFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val film = arguments?.getParcelable<Film>(BUNDLE_EXTRA)
         if (film != null) {
-            val director = film.director
+            val s = "Director: " + film.director + " Year: "+ film.year+ " Rating: "+ film.rating
             val name = film.name
-            binding.text.text = name
-//            binding.cityCoordinates.text = String.format(
-//                getString(R.string.city_coordinates),
-//                city.lat.toString(),
-//                city.lon.toString()
-//            )
-//            binding.temperatureValue.text = weather.temperature.toString()
-        //           binding.feelsLikeValue.text = weather.feelsLike.toString()
+            binding.nameFilm.text = name
+            binding.descriptionFilm.text = s
         }
     }
 
