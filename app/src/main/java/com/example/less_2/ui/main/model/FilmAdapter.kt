@@ -34,8 +34,9 @@ class FilmAdapter (private var onItemViewClickListener: MainFragment.OnItemViewC
 
     inner class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView){
         fun bind(film: Film){
-            val s: String = film.name+ " "+ film.rating.toString()
-            itemView.findViewById<TextView>(R.id.textFilm).text = s
+            val s: String = "Director: " + film.director + " Year: "+ film.year+ " Rating: "+ film.rating
+            itemView.findViewById<TextView>(R.id.name).text = film.name
+            itemView.findViewById<TextView>(R.id.description).text = s
             itemView.setOnClickListener {
                 onItemViewClickListener?.onItemViewClick(film)
             }
