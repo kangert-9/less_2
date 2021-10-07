@@ -7,7 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.less_2.R
 import com.example.less_2.databinding.MainFragmentBinding
+import com.example.less_2.ui.main.model.Film
 import com.example.less_2.ui.main.viewmodel.MainViewModel
 import com.example.less_2.ui.main.viewmodel.AppState
 import com.google.android.material.snackbar.Snackbar
@@ -16,6 +18,9 @@ import com.example.less_2.ui.main.model.FilmAdapter
 
 
 class MainFragment : Fragment() {
+    interface OnItemViewClickListener {
+        fun onItemViewClick(film: Film)
+    }
 
     companion object {
         fun newInstance() = MainFragment()
@@ -24,7 +29,19 @@ class MainFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
-    private val adapter = FilmAdapter()
+    private val adapter = FilmAdapter(object : OnItemViewClickListener {
+        override fun onItemViewClick(film: Film) {
+            val manager = activity?.supportFragmentManager
+            if (manager != null) {
+                val bundle = Bundle()
+                bundle.putParcelable(FilmFragment.BUNDLE_EXTRA, film)
+                manager.beginTransaction()
+                    .replace(R.id.container, FilmFragment.newInstance(bundle))
+                    .addToBackStack("")
+                    .commitAllowingStateLoss()
+            }
+        }
+    })
 
 
     override fun onCreateView(
@@ -68,5 +85,9 @@ class MainFragment : Fragment() {
                     .show()
             }
         }
+    }
+    override fun onDestroy() {
+        adapter.removeListener()
+        super.onDestroy()
     }
 }

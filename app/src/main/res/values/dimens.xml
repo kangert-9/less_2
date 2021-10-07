@@ -5,4 +5,6 @@
     <dimen name="temperature_value_text_size">40sp</dimen>
     <dimen name="city_name_margin_top">50dp</dimen>
     <dimen name="sizeItemList">30sp</dimen>
+    <dimen name="small_margin">20dp</dimen>
+    <dimen name="large_margin">120dp</dimen>
 </resources>

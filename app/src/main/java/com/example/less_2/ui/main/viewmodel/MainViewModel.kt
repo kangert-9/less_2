@@ -10,7 +10,6 @@ import kotlin.random.Random
 class MainViewModel : ViewModel() {
     private val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData()
     private val repositoryImpl: Repository = RepositoryImpl()
-    //val liveData: LiveData<AppState> = liveDataToObserve
     fun getLiveData() = liveDataToObserve
 
     fun getFilm() = getDataFromLocalSource()

@@ -7,7 +7,6 @@ import com.example.less_2.R.*
 import com.example.less_2.R.color.*
 import com.example.less_2.databinding.MainActivityBinding
 import android.view.Menu
-import android.view.MenuItem
 
 
 

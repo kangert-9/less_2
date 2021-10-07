@@ -1,6 +1,12 @@
 package com.example.less_2.ui.main.model
 
-data class Film(val name: String, val rating: Double, val director: String, val year: Int, val isLike: Boolean)
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+data class Film(val name: String, val rating: Double, val director: String,
+                val year: Int, val isLike: Boolean) : Parcelable
+
 
 fun getFilms(): List<Film> {
     return listOf(

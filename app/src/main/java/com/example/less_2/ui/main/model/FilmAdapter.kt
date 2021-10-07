@@ -1,15 +1,22 @@
 package com.example.less_2.ui.main.model
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.less_2.R
+import com.example.less_2.ui.main.view.MainFragment
 
-class FilmAdapter : RecyclerView.Adapter<FilmAdapter.ViewHolder>(){
+class FilmAdapter (private var onItemViewClickListener: MainFragment.OnItemViewClickListener?): RecyclerView.Adapter<FilmAdapter.ViewHolder>(){
     private var filmList: List<Film> = ArrayList()
 
+    fun removeListener() {
+        onItemViewClickListener = null
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
     fun setFilmList (filmList: List<Film>){
         this.filmList = filmList
         notifyDataSetChanged()
@@ -29,6 +36,9 @@ class FilmAdapter : RecyclerView.Adapter<FilmAdapter.ViewHolder>(){
         fun bind(film: Film){
             val s: String = film.name+ " "+ film.rating.toString()
             itemView.findViewById<TextView>(R.id.textFilm).text = s
+            itemView.setOnClickListener {
+                onItemViewClickListener?.onItemViewClick(film)
+            }
         }
     }
 }
