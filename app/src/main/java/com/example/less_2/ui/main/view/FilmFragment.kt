@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.less_2.R
 import com.example.less_2.databinding.FragmentFilmBinding
 import com.example.less_2.ui.main.model.Film
 
@@ -23,12 +24,11 @@ class FilmFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val film = arguments?.getParcelable<Film>(BUNDLE_EXTRA)
-        if (film != null) {
-            val s = "Director: " + film.director + " Year: "+ film.year+ " Rating: "+ film.rating
-            val name = film.name
-            binding.nameFilm.text = name
-            binding.descriptionFilm.text = s
+        arguments?.getParcelable<Film>(BUNDLE_EXTRA)?.let { film ->
+            film.name.also {
+                binding.nameFilm.text = film.name
+                binding.descriptionFilm.text = "Director: " + film.director + " Year: "+ film.year+ " Rating: "+ film.rating
+            }
         }
     }
 

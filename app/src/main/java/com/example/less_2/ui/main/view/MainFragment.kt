@@ -25,24 +25,22 @@ class MainFragment : Fragment() {
     companion object {
         fun newInstance() = MainFragment()
     }
-
-    private lateinit var viewModel: MainViewModel
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel: MainViewModel by lazy { ViewModelProvider(this).get(MainViewModel::class.java) }
     private val adapter = FilmAdapter(object : OnItemViewClickListener {
         override fun onItemViewClick(film: Film) {
-            val manager = activity?.supportFragmentManager
-            if (manager != null) {
-                val bundle = Bundle()
-                bundle.putParcelable(FilmFragment.BUNDLE_EXTRA, film)
-                manager.beginTransaction()
-                    .replace(R.id.container, FilmFragment.newInstance(bundle))
+            activity?.supportFragmentManager?.apply {
+                beginTransaction()
+                    .replace(R.id.container, FilmFragment.newInstance(Bundle().apply {
+                        putParcelable(FilmFragment.BUNDLE_EXTRA, film)
+                    }))
                     .addToBackStack("")
                     .commitAllowingStateLoss()
             }
         }
     })
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,7 +57,6 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         viewModel.getLiveData().observe(viewLifecycleOwner, { renderData(it) })
         viewModel.getFilm()
     }
