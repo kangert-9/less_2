@@ -6,6 +6,7 @@ import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.example.less_2.ui.main.view.*
 import com.google.gson.Gson
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -15,26 +16,9 @@ import java.util.stream.Collectors
 import javax.net.ssl.HttpsURLConnection
 
 const val MAIN_SERVICE_STRING_EXTRA = "MainServiceExtra"
-const val ID_EXTRA = "ID_Extra"
 private const val REQUEST_GET = "GET"
 private const val REQUEST_TIMEOUT = 10000
 private const val REQUEST_API_KEY = "X-themoviedb-API-Key"
-const val DETAILS_INTENT_FILTER = "DETAILS INTENT FILTER"
-const val DETAILS_LOAD_RESULT_EXTRA = "LOAD RESULT"
-const val DETAILS_INTENT_EMPTY_EXTRA = "INTENT IS EMPTY"
-const val DETAILS_DATA_EMPTY_EXTRA = "DATA IS EMPTY"
-const val DETAILS_RESPONSE_EMPTY_EXTRA = "RESPONSE IS EMPTY"
-const val DETAILS_REQUEST_ERROR_EXTRA = "REQUEST ERROR"
-const val DETAILS_REQUEST_ERROR_MESSAGE_EXTRA = "REQUEST ERROR MESSAGE"
-const val DETAILS_URL_MALFORMED_EXTRA = "URL MALFORMED"
-const val DETAILS_RESPONSE_SUCCESS_EXTRA = "RESPONSE SUCCESS"
-const val DETAILS_TITLE_EXTRA = "TITLE"
-const val DETAILS_OVERVIEW_EXTRA = "OVERVIEW"
-//private const val TITLE_INVALID = "-100"
-//private const val OVERVIEW_INVALID = "-100"
-//private const val PROCESS_ERROR = "Обработка ошибки"
-
-
 
 
 class MainService(name: String = "MainService"): IntentService(name) {
@@ -68,7 +52,6 @@ class MainService(name: String = "MainService"): IntentService(name) {
             return
         }
         try {
-           // val handler = Handler(Looper.getMainLooper())
             try {
                 urlConnection = url.openConnection() as HttpsURLConnection
                 urlConnection.apply {
@@ -92,7 +75,6 @@ class MainService(name: String = "MainService"): IntentService(name) {
             }
         } catch (e: MalformedURLException) {
             onErrorResponse(e.message ?:"Unknown Error")
-           // listener.onFailed(e)
         } finally {
             urlConnection!!.disconnect()
         }
@@ -126,8 +108,8 @@ class MainService(name: String = "MainService"): IntentService(name) {
 
     private fun onSuccessResponse(it: FilmDTO) {
         putLoadResult(DETAILS_RESPONSE_SUCCESS_EXTRA)
-        //broadcastIntent.putExtra(DETAILS_TITLE_EXTRA, it.original_title)
-        //broadcastIntent.putExtra(DETAILS_OVERVIEW_EXTRA, it.overview)
+        broadcastIntent.putExtra(DETAILS_TITLE_EXTRA, it.original_title)
+        broadcastIntent.putExtra(DETAILS_OVERVIEW_EXTRA, it.overview)
         LocalBroadcastManager.getInstance(this).sendBroadcast(broadcastIntent)
     }
 
