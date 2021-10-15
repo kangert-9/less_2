@@ -19,6 +19,7 @@ class MainViewModel (
     private val repositoryImpl: Repository = RepositoryImpl(RemoteDataSource())
 ) : ViewModel() {
     fun getLiveData() = liveData
+   // fun getFilm() = checkResponse()
 
     fun getFilmFromRemoteSource(requestLink: String) {
         liveData.value = AppState.Loading
@@ -53,6 +54,18 @@ class MainViewModel (
             }
         }
     }
+
+//    private fun getDataFromLocalSource() {
+//        liveData.value = AppState.Loading
+//        Thread {
+//            sleep(1000)
+//            if(Random.nextBoolean()) {
+//                liveData.postValue(AppState.Success(convertDtoToModel(filmDTO)))
+//            } else {
+//                liveData.postValue(AppState.Error(Exception("нет интернета")))
+//            }
+//        }.start()
+//    }
 
     fun convertDtoToModel(filmDTO: FilmDTO): List<Film> {
         return listOf(Film(0, filmDTO.original_title, 0.0, filmDTO.overview, 2021, false))
