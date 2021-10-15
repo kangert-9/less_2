@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface FilmAPI {
     @GET("v2/informers")
-    fun getWeather(
+    fun getFilm(
         @Header("X-themoviedb-API-Key") token: String,
         @Query("id") id: Int
     ): Call<FilmDTO>

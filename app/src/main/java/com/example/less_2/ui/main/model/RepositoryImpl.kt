@@ -1,11 +1,11 @@
 package com.example.less_2.ui.main.model
 
+import okhttp3.Callback
 
-class RepositoryImpl : Repository
-{
+class RepositoryImpl (private val remoteDataSource: RemoteDataSource) :
+    Repository {
 
-    override fun getFilmFromServer() = getFilms()
-
-    override fun getFilmFromLocalStorage() = getFilms()
-
+    override fun getFilmFromServer(requestLink: String, callback: Callback) {
+        remoteDataSource.getFilmDetails(requestLink, callback)
+    }
 }

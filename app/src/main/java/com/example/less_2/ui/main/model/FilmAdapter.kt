@@ -33,10 +33,11 @@ class FilmAdapter (private var onItemViewClickListener: MainFragment.OnItemViewC
     override fun getItemCount(): Int = filmList.size
 
     inner class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView){
+        @SuppressLint("SetTextI18n")
         fun bind(film: Film){
             itemView.apply {
                 findViewById<TextView>(R.id.name).text = film.name
-                findViewById<TextView>(R.id.description).text = "Director: " + film.director + " Year: "+ film.year+ " Rating: "+ film.rating
+                findViewById<TextView>(R.id.description).text = "Director: ${film.director} Year: ${film.year} Rating: ${film.rating}"
                 setOnClickListener { onItemViewClickListener?.onItemViewClick(film) }
             }
 

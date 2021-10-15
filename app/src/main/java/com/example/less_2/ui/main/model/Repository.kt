@@ -1,7 +1,8 @@
 package com.example.less_2.ui.main.model
 
+import okhttp3.Callback
+
 interface Repository {
-    fun getFilmFromServer(): List<Film>
-    fun getFilmFromLocalStorage(): List<Film>
+    fun getFilmFromServer(requestLink: String, callback: Callback)
 
 }
