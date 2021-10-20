@@ -58,7 +58,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getLiveData().observe(viewLifecycleOwner, { renderData(it) })
-        viewModel.getFilm()
+       // viewModel.getFilm()
     }
 
     private fun renderData(appState: AppState) {
@@ -78,7 +78,7 @@ class MainFragment : Fragment() {
                 binding.loadingLayout.visibility = View.GONE
                 Snackbar
                     .make(binding.root, "Error: ${appState.error}", Snackbar.LENGTH_INDEFINITE)
-                    .setAction("Reload") { viewModel.getFilm() }
+//                    .setAction("Reload") { viewModel.getFilm() }
                     .show()
             }
         }
