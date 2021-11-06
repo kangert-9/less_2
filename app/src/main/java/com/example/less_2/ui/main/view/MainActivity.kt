@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
             addFragment(HistoryFragment())
         }
         binding.buttonRat.setOnClickListener {
-            addFragment(RatingsFragment())
+            addFragment(ContactsFragment())
         }
     }
 
