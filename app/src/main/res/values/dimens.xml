@@ -7,4 +7,6 @@
     <dimen name="sizeItemList">30sp</dimen>
     <dimen name="small_margin">20dp</dimen>
     <dimen name="large_margin">120dp</dimen>
+    <dimen name="hairline">1dp</dimen>
+    <dimen name="margin_5_dp">5dp</dimen>
 </resources>
