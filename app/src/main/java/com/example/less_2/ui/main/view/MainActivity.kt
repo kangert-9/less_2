@@ -34,30 +34,12 @@ class MainActivity : AppCompatActivity() {
         //todo
         binding.buttonHome.setOnClickListener {
             addFragment(MainFragment())
-            binding.buttonHome.setTextColor(getColor(strong_pink))
-            binding.buttonHome.setBackgroundColor(getColor(white))
-            binding.buttonRat.setTextColor(getColor(white))
-            binding.buttonRat.setBackgroundColor(getColor(purple_500))
-            binding.buttonFav.setTextColor(getColor(white))
-            binding.buttonFav.setBackgroundColor(getColor(purple_500))
         }
         binding.buttonFav.setOnClickListener {
-            addFragment(FavoritesFragment())
-            binding.buttonHome.setTextColor(getColor(white))
-            binding.buttonHome.setBackgroundColor(getColor(purple_500))
-            binding.buttonRat.setTextColor(getColor(white))
-            binding.buttonRat.setBackgroundColor(getColor(purple_500))
-            binding.buttonFav.setTextColor(getColor(strong_pink))
-            binding.buttonFav.setBackgroundColor(getColor(white))
+            addFragment(HistoryFragment())
         }
         binding.buttonRat.setOnClickListener {
             addFragment(RatingsFragment())
-            binding.buttonHome.setTextColor(getColor(white))
-            binding.buttonHome.setBackgroundColor(getColor(purple_500))
-            binding.buttonRat.setTextColor(getColor(strong_pink))
-            binding.buttonRat.setBackgroundColor(getColor(white))
-            binding.buttonFav.setTextColor(getColor(white))
-            binding.buttonFav.setBackgroundColor(getColor(purple_500))
         }
     }
 

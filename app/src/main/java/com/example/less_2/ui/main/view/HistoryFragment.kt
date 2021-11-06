@@ -5,35 +5,32 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.less_2.R
 import com.example.less_2.databinding.FragmentHistoryBinding
 import com.example.less_2.ui.main.model.HistoryAdapter
 import com.example.less_2.ui.main.viewmodel.AppState
 import com.example.less_2.ui.main.viewmodel.HistoryViewModel
-import kotlinx.android.synthetic.main.fragment_history.*
 
 
 class HistoryFragment : Fragment() {
 
     private var _binding: FragmentHistoryBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: HistoryViewModel by lazy { ViewModelProvider(this).get(HistoryViewModel::class.java) }
+    private val viewModel: HistoryViewModel by lazy { ViewModelProvider(this)[HistoryViewModel::class.java] }
     private val adapter: HistoryAdapter by lazy { HistoryAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentHistoryBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        historyFragmentRecyclerview.adapter = adapter
-        viewModel.historyLiveData.observe(viewLifecycleOwner, Observer { renderData(it) })
+        binding.historyFragmentRecyclerview.adapter = adapter
+        viewModel.historyLiveData.observe(viewLifecycleOwner, { renderData(it) })
         viewModel.getAllHistory()
     }
 
@@ -51,12 +48,13 @@ class HistoryFragment : Fragment() {
             is AppState.Error -> {
                 binding.historyFragmentRecyclerview.visibility = View.VISIBLE
                 binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
-                binding.historyFragmentRecyclerview.showSnackBar(
-                    getString(R.string.error),
-                    getString(R.string.reload),
-                    {
-                        viewModel.getAllHistory()
-                    })
+//                binding.historyFragmentRecyclerview.showSnackBar(
+//                    "error",
+//                    "reload"
+//                )
+                run {
+                    viewModel.getAllHistory()
+                }
             }
         }
     }
@@ -65,11 +63,4 @@ class HistoryFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() =
-            HistoryFragment()
-    }
-
-                    }
+}
